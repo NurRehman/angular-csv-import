@@ -8,12 +8,12 @@ import { CSVRecord } from './CSVModel';
 })
 
 export class AppComponent {
-  title = 'Angular7-readCSV';
+  title = 'import-CSV';
 
   public records: any[] = [];
   @ViewChild('csvReader') csvReader: any;
 
-  uploadListener($event: any): void {
+  importCSVfile($event: any): void {
 
     let text = [];
     let files = $event.srcElement.files;
@@ -34,11 +34,11 @@ export class AppComponent {
       };
 
       reader.onerror = function () {
-        console.log('error is occured while reading file!');
+        console.error('error is occured while reading file!');
       };
 
     } else {
-      alert("Please import valid .csv file.");
+      console.error("Please import valid .csv file.");
       this.fileReset();
     }
   }
@@ -50,12 +50,10 @@ export class AppComponent {
       let curruntRecord = (<string>csvRecordsArray[i]).split(',');
       if (curruntRecord.length == headerLength) {
         let csvRecord: CSVRecord = new CSVRecord();
-        csvRecord.id = curruntRecord[0].trim();
-        csvRecord.firstName = curruntRecord[1].trim();
-        csvRecord.lastName = curruntRecord[2].trim();
-        csvRecord.age = curruntRecord[3].trim();
-        csvRecord.position = curruntRecord[4].trim();
-        csvRecord.mobile = curruntRecord[5].trim();
+        csvRecord.firstName = curruntRecord[0].trim();
+        csvRecord.surName = curruntRecord[1].trim();
+        csvRecord.issueCount = curruntRecord[2].trim();
+        csvRecord.dateOfBirth = curruntRecord[3].trim();
         csvArr.push(csvRecord);
       }
     }
